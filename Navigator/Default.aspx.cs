@@ -34,5 +34,18 @@ namespace Navigator
 				}
 			}
 		}
+
+
+		protected void OnSelected(object sender, EventArgs e)
+		{
+			if (FileUpLoad1.HasFile)
+			{
+
+			}
+			else 
+			{ 
+
+			}
+		}
 	}
 }

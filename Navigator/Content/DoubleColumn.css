@@ -8,6 +8,10 @@
 	width:400px;
 }
 
+#bottom{
+	position: relative;
+}
+
 #nav ul {
 	list-style:none;
 }
@@ -17,4 +21,19 @@
 
 #footer {
 clear:both;
+}
+
+.file_button_container,
+.file_button_container input {
+	height: 25px;
+	width:66px;
+}
+
+.file_button_container{
+	background: transparent url(http://www.ifunia.com/images/christmas/youtube-upload-button.gif)
+}
+
+.file_button_container input{
+	opacity: 0;
+
 }

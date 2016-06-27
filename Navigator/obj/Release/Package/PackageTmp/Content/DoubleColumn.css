@@ -1,0 +1,20 @@
+﻿#main {
+	float:left;
+	width:580px;
+}
+
+#sidebar {
+	float:right;
+	width:400px;
+}
+
+#nav ul {
+	list-style:none;
+}
+#nav li {
+	display:inline;
+}
+
+#footer {
+clear:both;
+}

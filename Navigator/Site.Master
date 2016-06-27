@@ -1,5 +1,5 @@
 ﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="Navigator.SiteMaster" %>
-
+<%-- key API : AIzaSyDyt1XztsObcNAvlgxqTDFaSwJUymGL758--%>
 <!DOCTYPE html>
 <html lang="en">
 <head runat="server">
@@ -11,15 +11,17 @@
     <webopt:BundleReference runat="server" Path="~/Content/css" /> 
     <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
     <meta name="viewport" content="width=device-width" />
+
     <asp:ContentPlaceHolder runat="server" ID="HeadContent" />
 </head>
 <body>
     <form runat="server">
     <asp:ScriptManager runat="server">
         <Scripts>
+
             <%--To learn more about bundling scripts in ScriptManager see http://go.microsoft.com/fwlink/?LinkID=272931&clcid=0x409 --%>
             <%--Framework Scripts--%>
-            
+          
             <asp:ScriptReference Name="MsAjaxBundle" />
             <asp:ScriptReference Name="jquery" />
             <asp:ScriptReference Name="jquery.ui.combined" />
@@ -31,6 +33,7 @@
             <asp:ScriptReference Name="TreeView.js" Assembly="System.Web" Path="~/Scripts/WebForms/TreeView.js" />
             <asp:ScriptReference Name="WebParts.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebParts.js" />
             <asp:ScriptReference Name="Focus.js" Assembly="System.Web" Path="~/Scripts/WebForms/Focus.js" />
+			<asp:ScriptReference Name="Navigator.js" Assembly="System.Web" Path="~/Scripts/WebForms/Navigator.js" />
             <asp:ScriptReference Name="WebFormsBundle" />
             <%--Site Scripts--%>
 
@@ -48,12 +51,15 @@
     <div id="main">
         <section class="content-wrapper main-content clear-fix">
             <asp:ContentPlaceHolder runat="server" ID="MainContent" />
+			<asp:ContentPlaceHolder runat="server" ID="BottomContent"/>
         </section>
     </div>
 	<div id="sidebar">
 		<asp:ContentPlaceHolder runat="server" ID="SideBarContent" />
 	</div>
-
+	<div id="bottom">
+		<%--<asp:ContentPlaceHolder runat="server" ID="BottomContent"/>--%>
+	</div>
     <div id="footer">
         <div class="content-wrapper">
             <div class="float-left">
