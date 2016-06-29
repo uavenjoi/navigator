@@ -3,15 +3,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
+using System.Web.Services;
 using System.Web.UI.WebControls;
 using Subgurim.Controles;
 using Subgurim.Controles.GoogleChartIconMaker;
 using System.Drawing;
+using System.IO;
 
 namespace Navigator
 {
 	public partial class _Default : Page
 	{
+		private string fileName;
+
 		protected void Page_Load(object sender, EventArgs e)
 		{
 			if (!IsPostBack)
@@ -36,16 +40,33 @@ namespace Navigator
 		}
 
 
-		protected void OnSelected(object sender, EventArgs e)
+		protected void FileUpload(object sender, EventArgs e)
 		{
-			if (FileUpLoad1.HasFile)
+			HttpPostedFile file = Request.Files["fileUpload"];
+			if (file != null)
 			{
-
+				fileName = Path.GetFileName(file.FileName);
 			}
-			else 
-			{ 
+			ProcessFile(fileName);
+		}
 
+		private void ProcessFile(string  fileName)
+		{
+			string cityName = null;
+			double longtitude = 0;
+			double latitude = 0;
+			if (!String.IsNullOrEmpty(fileName))
+			{
+				using (var streamReader = File.OpenText(fileName))
+				{
+					var lines = streamReader.ReadToEnd().Split("\r\n".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
+					foreach(var line in lines)
+					{
+						
+					}
+				}
 			}
 		}
+
 	}
 }

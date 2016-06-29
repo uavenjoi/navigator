@@ -9,14 +9,18 @@
 
 <asp:Content runat="server" ID ="SideBarContent" ContentPlaceHolderID="SideBarContent">
 	<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDyt1XztsObcNAvlgxqTDFaSwJUymGL758" type="text/javascript"></script>
-	<h1>Column 2</h1>
+	<h1>Information</h1>
 	
-	<asp:FileUpLoad id="FileUpLoad1" runat="server"  />
-	<asp:Button id="UploadBtn" Text="Upload File" OnClick="OnSelected" runat="server" Width="105px" />
-	<div class="file_button_container">
-		<input type="file" id="file" name="file" />
-		
+	<div style="border:1px solid; width:300px">
+		<p>Add new locations</p>
+		<input type="file" id="fileUpload" name="fileUpload" onchange="OnFileUploaded() " hidden="hidden"/>
+		<button type="button" id="btnFileUpload" onclick="OnSelected()">Upload</button>
+		<input type="text" id="fileName" style="width:100px" />
+		<br/>
+		<asp:Button runat="server" ID="btnUpload" OnClick="FileUpload" Text="Process 2"/>
 	</div>
+	
+
 	<table style="border:1px solid;">
 		<tr style="border:1px solid">
 			<td>First</td>
