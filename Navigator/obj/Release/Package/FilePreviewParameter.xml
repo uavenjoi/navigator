@@ -4,7 +4,7 @@
     <parameterEntry kind="ProviderPath" scope="IisApp" match="^d:\\Sokolov\\Private\\Navigator\\Navigator\\obj\\Release\\Package\\PackageTmp$" />
     <parameterEntry kind="ProviderPath" scope="setAcl" match="^d:\\Sokolov\\Private\\Navigator\\Navigator\\obj\\Release\\Package\\PackageTmp$" />
   </parameter>
-  <parameter name="DefaultConnection-Web.config Connection String" description="DefaultConnection Connection String used in web.config by the application to access the database." value="Data Source=(LocalDb)\v11.0;Initial Catalog=aspnet-Navigator-20160623162408;Integrated Security=SSPI;AttachDBFilename=|DataDirectory|\aspnet-Navigator-20160623162408.mdf" tags="SqlConnectionString">
+  <parameter name="DefaultConnection-Web.config Connection String" description="" value="Data Source=(LocalDb)\v11.0;Initial Catalog=aspnet-Navigator-20160623162408;Integrated Security=SSPI;AttachDBFilename=|DataDirectory|\aspnet-Navigator-20160623162408.mdf" tags="">
     <parameterEntry kind="XmlFile" scope="d:\\Sokolov\\Private\\Navigator\\Navigator\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='DefaultConnection']/@connectionString" />
   </parameter>
 </parameters>

@@ -70,4 +70,3 @@ d:\Sokolov\Private\Navigator\Navigator\bin\Microsoft.AspNet.Membership.OpenAuth.
 d:\Sokolov\Private\Navigator\Navigator\bin\Microsoft.AspNet.FriendlyUrls.xml
 d:\Sokolov\Private\Navigator\Navigator\obj\Debug\Navigator.dll
 d:\Sokolov\Private\Navigator\Navigator\obj\Debug\Navigator.pdb
-d:\Sokolov\Private\Navigator\Navigator\obj\Debug\Navigator.csprojResolveAssemblyReference.cache

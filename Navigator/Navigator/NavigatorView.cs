@@ -10,8 +10,9 @@ namespace Navigator
 	public class NavigatorView
 	{
 		private List<Marker> listMarker;
-		string fileStorageName = "write.txt";
-		string currentPath = HttpRuntime.AppDomainAppPath;
+		const string fileStorageFolder = "Files";
+		const string fileStorageName = "write.txt";
+		public readonly string currentPath = HttpRuntime.AppDomainAppPath;
 
 		public List<Marker> ListMarker 
 		{
@@ -24,44 +25,71 @@ namespace Navigator
 		public NavigatorView() 
 		{
 			GetCoordinatesList();
+		}
 
-			//var marker1 = new Marker(48.51, 2.21);
-			//marker1.Name = "Paris";
-			//var marker2 = new Marker(51.30, 0.73);
-			//marker2.Name = "London";
-			//listMarker = new List<Marker>();
-			//listMarker.Add(marker1);
-			//listMarker.Add(marker2);
+		public string FileStorageFolder
+		{
+			get { return fileStorageFolder; }
+		}
+
+		public string FileStorageName
+		{
+			get { return fileStorageName; }
 		}
 
 		private void GetCoordinatesList()
 		{
 			listMarker = new List<Marker>();
-			var fileStorageFullPath = Path.Combine(currentPath, fileStorageName);
-			var lines = File.ReadAllLines(fileStorageFullPath);
 			double latitude = 0;
 			double longitude = 0;
 			string cityName = string.Empty;
 			Marker marker= null;
-			foreach (var line in lines)
+			var lines = GetLinesFromFile();
+			if (lines != null)
 			{
-				if(!String.IsNullOrEmpty(line))
+				foreach (var line in lines)
 				{
-					var cityCoordinates = line.Split(' ').ToList();
-					if (cityCoordinates.Count == 3)
+					if (!String.IsNullOrEmpty(line))
 					{
-						cityName = cityCoordinates[0];
-						double.TryParse(cityCoordinates[1], NumberStyles.Any, CultureInfo.InvariantCulture,  out latitude);
-						double.TryParse(cityCoordinates[2], NumberStyles.Any, CultureInfo.InvariantCulture,  out longitude);
-						marker = new Marker(latitude, longitude);
-						marker.Name = cityName;
-					}
-					if (marker != null)
-					{
-						listMarker.Add(marker);
+						var cityCoordinates = line.Split(' ').ToList().Where(s=> !string.IsNullOrWhiteSpace(s)).Distinct().ToList();
+						if (cityCoordinates.Count == 13)
+						{
+							cityName = cityCoordinates[4]+ " " + cityCoordinates[5];
+							double.TryParse(cityCoordinates[9], NumberStyles.Any, CultureInfo.InvariantCulture, out latitude);
+							double.TryParse(cityCoordinates[6], NumberStyles.Any, CultureInfo.InvariantCulture, out longitude);
+							marker = new Marker(latitude, longitude);
+							marker.Name = cityName;
+						}
+						if (marker != null)
+						{
+							listMarker.Add(marker);
+						}
 					}
 				}
 			}
+		}
+
+		private List<string> GetLinesFromFile()
+		{
+			string lineStartCoordinates = "+SITE/ID";
+			string linesEndCoordinates = "-SITE/ID";
+			var fileStorageFullPath = Path.Combine(currentPath, fileStorageFolder, fileStorageName);
+			var lines = File.ReadAllLines(fileStorageFullPath);
+			List<string> coordLinesList = new List<string>();
+			bool isCoordinateLine = false;
+
+			foreach (var line in lines)
+			{
+				if (String.Compare(line, linesEndCoordinates) == 0) 
+					break;
+				if (!isCoordinateLine && String.Compare(line, lineStartCoordinates) == 0)
+					isCoordinateLine = true;
+				if (isCoordinateLine)
+				{
+					coordLinesList.Add(line);
+				}
+			}
+			return coordLinesList;
 		}
 	}
 }
