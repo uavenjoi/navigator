@@ -14,8 +14,6 @@ namespace Navigator
 {
 	public partial class _Default : Page
 	{
-		private string fileName;
-
 		protected void Page_Load(object sender, EventArgs e)
 		{
 			if (!IsPostBack)
@@ -39,30 +37,32 @@ namespace Navigator
 			}
 		}
 
-
 		protected void FileUpload(object sender, EventArgs e)
 		{
 			HttpPostedFile file = Request.Files["fileUpload"];
 			if (file != null)
 			{
-				fileName = Path.GetFileName(file.FileName);
+				var filePath = Path.GetFullPath(file.FileName);
+				ProcessFile(file);
 			}
-			ProcessFile(fileName);
 		}
 
-		private void ProcessFile(string  fileName)
+		private void ProcessFile(HttpPostedFile file)
 		{
 			string cityName = null;
 			double longtitude = 0;
 			double latitude = 0;
-			if (!String.IsNullOrEmpty(fileName))
+			string fileStorageName = "write.txt";
+			string currentPath = HttpRuntime.AppDomainAppPath;
+			var fileStorageFullPath = Path.Combine(currentPath, fileStorageName);
+			if (file != null)
 			{
-				using (var streamReader = File.OpenText(fileName))
+				using (var writeText = new StreamWriter(fileStorageFullPath))
 				{
-					var lines = streamReader.ReadToEnd().Split("\r\n".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
-					foreach(var line in lines)
+					var lines = new StreamReader(file.InputStream).ReadToEnd().Split("\r\n".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
+					foreach (var line in lines)
 					{
-						
+						writeText.WriteLine(line);
 					}
 				}
 			}
