@@ -39,9 +39,16 @@ namespace Navigator
 
 		private void GetCoordinatesList()
 		{
-			listMarker = new List<Marker>();
-			double latitude = 0;
+			const int numberOfSubstrings = 13;
+			double latDegree = 0;
+			double lonDegree = 0;
+			double latMinutes = 0;
+			double lonMinutes = 0;
+			double latSeconds = 0;
+			double lonSeconds = 0;
 			double longitude = 0;
+			double latitude = 0;
+			listMarker = new List<Marker>();
 			string cityName = string.Empty;
 			Marker marker= null;
 			var lines = GetLinesFromFile();
@@ -52,11 +59,17 @@ namespace Navigator
 					if (!String.IsNullOrEmpty(line))
 					{
 						var cityCoordinates = line.Split(' ').ToList().Where(s=> !string.IsNullOrWhiteSpace(s)).Distinct().ToList();
-						if (cityCoordinates.Count == 13)
+						if (cityCoordinates.Count == numberOfSubstrings)
 						{
 							cityName = cityCoordinates[4]+ " " + cityCoordinates[5];
-							double.TryParse(cityCoordinates[9], NumberStyles.Any, CultureInfo.InvariantCulture, out latitude);
-							double.TryParse(cityCoordinates[6], NumberStyles.Any, CultureInfo.InvariantCulture, out longitude);
+							double.TryParse(cityCoordinates[6], NumberStyles.Float, CultureInfo.InvariantCulture, out lonDegree);
+							double.TryParse(cityCoordinates[7], NumberStyles.Float, CultureInfo.InvariantCulture, out lonMinutes);
+							double.TryParse(cityCoordinates[8], NumberStyles.Float, CultureInfo.InvariantCulture, out lonSeconds);
+							double.TryParse(cityCoordinates[9], NumberStyles.Float, CultureInfo.InvariantCulture, out latDegree);
+							double.TryParse(cityCoordinates[10], NumberStyles.Float, CultureInfo.InvariantCulture, out latMinutes);
+							double.TryParse(cityCoordinates[11], NumberStyles.Float, CultureInfo.InvariantCulture, out latSeconds);
+							latitude=latDegree + latMinutes*0.01 + latSeconds*0.0001;
+							longitude = lonDegree+lonMinutes*0.01+lonSeconds*0.0001;
 							marker = new Marker(latitude, longitude);
 							marker.Name = cityName;
 						}

@@ -20,20 +20,22 @@ namespace Navigator
 			//if (!IsPostBack)
 			//{
 				navigatorView = new NavigatorView();
-				var center = new GLatLng(48.51, 2.21);
-				Gmap1.setCenter(center, 5);
+				var center = new GLatLng(48.51, 10.21);
+				Gmap1.setCenter(center, 4);
+				var xpinLetter = new XPinLetter(PinShapes.pin_star, "C", Color.Blue, Color.White, Color.Chocolate);
+				var location = new GLatLng(center.lat, center.lng);
+				//Gmap1.Add(new GMarker(location, new GMarkerOptions(new GIcon(xpinLetter.ToString(), xpinLetter.Shadow()))));
+				
 
 				foreach (var marker in navigatorView.ListMarker)
 				{
 					if (marker.Latitude > -90 && marker.Latitude < 90)
 					{
 						var icon = new PinIcon(PinIcons.flag, Color.Coral);
-						var xpinLetter = new XPinLetter(PinShapes.pin_star, "C", Color.Blue, Color.White, Color.Chocolate);
-						var location = new GLatLng(marker.Latitude, marker.Longitude);
-						Gmap1.Add(new GMarker(location, new GMarkerOptions(new GIcon(xpinLetter.ToString(), xpinLetter.Shadow()))));
+						
 						var gMarker = new GMarker(new GLatLng(marker.Latitude, marker.Longitude),
 											new GMarkerOptions(new GIcon(icon.ToString(), icon.Shadow())));
-						var tableText = String.Format(Marker.infoTableHtml, marker.Name, marker.Name, marker.Name);
+						var tableText = String.Format(Marker.infoTableHtml, marker.Name, marker.Name, marker.Name, marker.Latitude, marker.Longitude);
 						var infoWindow = new GInfoWindow(gMarker, tableText, false, GListener.Event.click);
 						Gmap1.Add(infoWindow);
 					}

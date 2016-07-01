@@ -19,8 +19,8 @@ namespace Navigator
 														<td>{2}</td>
 													</tr>
 													<tr>
-														<td>One</td>
-														<td>Two</td>
+														<td>{3}</td>
+														<td>{4}</td>
 													</tr>
 												</table>
 											</div>";
